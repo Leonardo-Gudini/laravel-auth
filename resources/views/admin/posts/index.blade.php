@@ -14,7 +14,7 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        @foreach ($post as $post)
+        @foreach ($posts as $post)
         <tbody>
             <tr>
               <th scope="row">{{ $post->id }}</th>
