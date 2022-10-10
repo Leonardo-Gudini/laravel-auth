@@ -13,9 +13,11 @@
     <div class="container pt-3">
         <h1>Boolpress</h1>
     </div>
+
+    <p>guarda i <a href="/pubPosts">post</a></p>
     <div id="root">
 
-        
+
 
 
 
