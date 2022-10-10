@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -37,7 +37,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'title'=>'required|max:255',
+                'description'=>'required|max:35565',
+            ]
+            );
+
+        $data = $request->all();
+
+        $post= new Post();
+        $post->fill($data);
+
+        $slug = $this->generateSlug($post->title);
+        $post->slug = $slug;
+
+        $post->save();
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -48,7 +64,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = Post::find($id);
+        return view('admin.posts.show', compact('posts'));
     }
 
     /**
@@ -59,7 +76,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.posts.edit');
     }
 
     /**
@@ -83,5 +100,19 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function generateSlug($title){
+        $slug = Str::slug($title, '-');
+        $checkDuplicate = Post::where('slug', $slug)->first();
+        $counter= 2;
+
+        while($checkDuplicate){
+            $slug = Str::slug($title . '-' . $counter);
+            $counter++;
+            $checkDuplicate = Post::where('slug', $slug)->first();
+        }
+
+        return $slug;
     }
 }

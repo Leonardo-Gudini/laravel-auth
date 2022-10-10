@@ -5,7 +5,9 @@
 <div class="container">
     <h1>Qui puoi modificare i tuoi post</h1>
 
-    <table class="table table-striped table-dark">
+    <a class="btn btn-primary" href="{{ route('admin.posts.create') }}">Crea nuovo post</a>
+
+    <table class="mt-3 table table-striped table-dark">
         <thead>
           <tr>
             <th scope="col">id</th>
@@ -21,7 +23,8 @@
               <td>{{ $post->title }}</td>
               <td>{{ $post->slug }}</td>
               <td>
-                <a href="#">Dettagli</a>
+                <a class="btn btn-primary" href="{{ route('admin.posts.show', compact('post'))}}">Dettagli</a>
+                <a class="btn btn-warning" href="{{ route('admin.posts.edit', compact('post'))}}">Modifica</a>
               </td>
             </tr>
           </tbody>
