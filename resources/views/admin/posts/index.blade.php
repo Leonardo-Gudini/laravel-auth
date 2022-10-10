@@ -23,8 +23,13 @@
               <td>{{ $post->title }}</td>
               <td>{{ $post->slug }}</td>
               <td>
-                <a class="btn btn-primary" href="{{ route('admin.posts.show', compact('post'))}}">Dettagli</a>
-                <a class="btn btn-warning" href="{{ route('admin.posts.edit', compact('post'))}}">Modifica</a>
+                <a class="btn btn-primary" href="{{ route('admin.posts.show', compact('post'))}}">Details</a>
+                <a class="btn btn-warning" href="{{ route('admin.posts.edit', compact('post'))}}">Edit</a>
+                <form method="POST" action="{{route('admin.posts.destroy', ['post' => $post->id])}}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger mt-1">Delete</button>
+                </form>
               </td>
             </tr>
           </tbody>
